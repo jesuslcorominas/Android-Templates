@@ -7,7 +7,7 @@ Plantillas para crear rápidamente un proyecto, activities o clases preconfigura
 ## Componentes
 En la carpeta **components** puedes encontrar plantillas para crear de una sola vez componentes complejos, como activities o fragments. Copia las carpetas de las plantillas que te interesen en 
 
-`[CARPETA_ANDROID_STUDIO]\plugins\android\lib\templates\other`. 
+`[CARPETA_ANDROID_STUDIO]\plugins\android\lib\templates\other`
 
 Con esto, cuando hagas en AndroidStudio **clic derecho > nuevo**, en la sección Other tendrás el elemento importado.
 
@@ -35,7 +35,9 @@ Además, se modifica el fichero AndroidManifest para agregar la nueva Activity.
 // **TODO** pendiente hacer un merge del fichero App para que agregue el método getComponent del nuevo Component creado. Ahora mismo, al agregar la Activity el proyecto deja de compilar hasta que se agregue ese método.
 
 ## Classes
-Puedes crear rápidamente clases con la estructura básica ya definida. Copia el contenido de la carpeta **classes** en [CARPETA_USUARIO]\.Android[VERSION]\config\fileTemplates.
+Puedes crear rápidamente clases con la estructura básica ya definida. Copia el contenido de la carpeta **classes** en 
+
+`[CARPETA_USUARIO]\.Android[VERSION]\config\fileTemplates`
 
 * Activity
 * CallbackView
