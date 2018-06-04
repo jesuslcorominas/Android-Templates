@@ -49,6 +49,7 @@ Puedes crear rápidamente clases con la estructura básica ya definida. Copia el
 
 ## Documentación y enlaces de interés
 * [http://www.i-programmer.info/professional-programmer/resources-and-tools/6845-android-adt-template-format-document.html](http://www.i-programmer.info/professional-programmer/resources-and-tools/6845-android-adt-template-format-document.html)
-* [https://freemarker.apache.org/docs/ref_builtins_string.html#ref_builtin_uncap_first](https://freemarker.apache.org/docs/ref_builtins_string.html#ref_builtin_uncap_first)
+* [https://freemarker.apache.org/docs/](https://freemarker.apache.org/docs/)
+* [https://freemarker.apache.org/docs/ref_builtins_string.html](https://freemarker.apache.org/docs/ref_builtins_string.html)
 * [https://riggaroo.co.za/custom-file-template-group-android-studiointellij/](https://riggaroo.co.za/custom-file-template-group-android-studiointellij/)
 * [https://coderwall.com/p/fsxvyw/file-templates-in-android-studio](https://coderwall.com/p/fsxvyw/file-templates-in-android-studio)
