@@ -1,0 +1,85 @@
+
+// ObjectBox
+buildscript {
+    ext {
+        osName = System.getProperty("os.name").toLowerCase()
+        isLinux = osName.contains("linux")
+        isWindows = osName.contains("windows")
+        is64 = System.getProperty("sun.arch.data.model") == "64"
+        isLinux64 = isLinux && is64
+        isWindows64 = isWindows && is64
+    }
+
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
+    }
+}
+
+// Para dagger
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
+
+apply plugin: 'java'
+// Para objectbox
+apply plugin: 'net.ltgt.apt-idea'
+apply plugin: 'io.objectbox'
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+// ObjectBox
+dependencies {
+    implementation "io.objectbox:objectbox-java:$objectboxVersion"
+
+    if (isLinux64) {
+        implementation "io.objectbox:objectbox-linux:$objectboxVersion"
+    } else if (isWindows64) {
+        implementation "io.objectbox:objectbox-windows:$objectboxVersion"
+    } else println("Native dependency could not be set up for unsupported OS: " + osName)
+
+    testCompile 'junit:junit:4.12'
+}
+
+// Dagger
+dependencies {
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Commons
+    implementation project(':commons')
+
+    // Modelo
+    implementation project(':model')
+
+    // Servicios rest
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    // GSON
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    // Joda-time
+    implementation "joda-time:joda-time:$jodatimeVersion"
+
+    // ModelMapper
+    implementation "org.modelmapper:modelmapper:$modelMapperVersion"
+
+    // Test
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$junit4Version"
+}

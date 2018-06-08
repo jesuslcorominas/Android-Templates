@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Blank</string>
+
+    <string name="button_accept">Aceptar</string>
+    <string name="button_cancel">Cancelar</string>
+
+    <string name="button_yes">Sí</string>
+    <string name="button_no">No</string>
+
+    <string name="error_connection_message">No se ha podido completar la operación.\nComprueba tu conexión a internet y vuelve a intentarlo.</string>
+    <string name="error_unexpected_message">No se ha podido completar la operación\nInténtalo más tarde.</string>
+
+    <string name="licenses">LICENCIAS</string>
+</resources>
+

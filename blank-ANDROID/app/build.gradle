@@ -1,0 +1,169 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+// Hay que aplicar el plugin de objectbox porque si no no funciona
+apply plugin: 'io.objectbox'
+// Fabric
+apply plugin: 'io.fabric'
+
+// region Android Annotations
+dependencies {
+    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    implementation "org.androidannotations:androidannotations-api:$AAVersion"
+}
+
+// endregion
+
+// region Dagger
+dependencies {
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+}
+
+// endregion
+
+// region Fabric
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+dependencies {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
+        transitive = true;
+    }
+}
+
+// endregion
+
+def isCIMachine() {
+    return project.hasProperty('fabricKey') && project.hasProperty("fabricSecret");
+}
+
+android {
+    compileSdkVersion compileSDK
+
+// region Configuracion Fabric
+    def fabricFile = file('fabric.properties')
+    def fabricApiKey
+    if (isCIMachine()) {
+        fabricFile.createNewFile()
+
+        def Properties fabricProps = new Properties();
+        fabricProps.load(new FileInputStream(fabricFile))
+
+        fabricProps.setProperty("apiKey", fabricKey)
+        fabricProps.setProperty("apiSecret", fabricSecret)
+
+        fabricProps.store(fabricFile.newWriter(), null)
+
+        // Esta linea es la que lo pone en el Manifest
+        fabricApiKey = fabricKey
+    } else {
+        def Properties fabricProps = new Properties();
+        fabricProps.load(new FileInputStream(fabricFile))
+
+        fabricApiKey = fabricProps.getProperty("apiKey")
+    }
+// endregion
+
+// region Configuracion Version autoincremental
+    // Autoincrement del version code see https://stackoverflow.com/a/21405744
+
+    def code
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+        code = versionProps['VERSION_CODE'].toInteger()
+
+        if (isCIMachine()) {
+            code = code + 1
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+        }
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
+// endregion
+
+    defaultConfig {
+        applicationId "com.jesuslcorominas.blank.app"
+        minSdkVersion minVersion
+        targetSdkVersion targetSDK
+        versionCode code
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [fabricApiKey: fabricApiKey]
+    }
+
+    buildTypes {
+
+        debug {
+
+        }
+
+        stable {
+            // Configuracion para integracion continua.
+            initWith release
+
+            applicationIdSuffix ".SNAPSHOT"
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // Modelo
+    implementation project(':model')
+
+    // Commons
+    implementation project(':commons')
+
+    // Data Referencia necesaria para que dagger pueda hacer las inyecciones de RepositoryModule
+    implementation project(':data')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // EventBus
+    implementation "org.greenrobot:eventbus:$eventbusVersion"
+
+    // GSON
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Joda-time
+    implementation "joda-time:joda-time:$jodatimeVersion"
+
+    // Dexter
+    implementation 'com.karumi:dexter:4.2.0'
+
+    // LicensesDialog
+    implementation('de.psdev.licensesdialog:licensesdialog:1.8.3')
+
+    // Android
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    implementation "com.android.support:support-v4:$androidSupportVersion"
+    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
+    implementation "com.android.support:design:$androidSupportVersion"
+
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
