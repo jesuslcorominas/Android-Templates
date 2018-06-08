@@ -2,7 +2,10 @@
 Plantillas para crear rápidamente un proyecto, activities o clases preconfiguradas
 
 ## Proyecto
-// TODO crear
+Plantilla de proyecto en blanco.
+
+// TODO explicar la plantilla
+// TODO comentar el codigo
 
 ## Componentes
 En la carpeta **components** puedes encontrar plantillas para crear de una sola vez componentes complejos, como activities o fragments. Copia las carpetas de las plantillas que te interesen en [CARPETA_ANDROID_STUDIO]\plugins\android\lib\templates\other. Con esto, cuando hagas en AndroidStudio **clic derecho > nuevo**, en la sección Other tendrás el elemento importado.
@@ -24,7 +27,41 @@ Con la plantilla Activity se crea todo lo necesario para tener una Activity con 
 
 Además, se modifica el fichero AndroidManifest para agregar la nueva Activity.
 
-// TODO pendiente hacer un merge del fichero App para que agregue el método getComponent del nuevo Component creado. Ahora mismo, al agregar la Activity el proyecto deja de compilar hasta que se agregue ese método.
+Al crear la Activity hay que modificar el fichero App.java para agregar el nuevo Component de Dagger y el método para obtenerlo. El problema es que no se puede hacer un merge del fichero java.
+
+// **TODO** plugin para AndroidStudio que haga un merge con el fichero App.java para agregar:
+
+
+import [package_name].di.component.[NOMBRE]Component;
+import [package_name].di.component.Dagger[NOMBRE]Component;
+
+...
+
+public class App extends Application {
+
+...
+
+	private [NOMBRE]Component [nombre]Component;
+	
+...	
+
+	@Override
+    public void onCreate() {
+		super.onCreate();
+		
+...		
+
+		[nombre]Component = Dagger[NOMBRE]Component.builder().build();
+		
+	}	
+	
+...	
+
+	public [NOMBRE]Component get[NOMBRE]Component() {
+        return [nombre]Component;
+    }
+}
+
 
 ## Classes
 Puedes crear rápidamente clases con la estructura básica ya definida. Copia el contenido de la carpeta **classes** en [CARPETA_USUARIO]\.Android[VERSION]\config\fileTemplates.
