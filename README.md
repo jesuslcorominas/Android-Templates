@@ -40,24 +40,35 @@ Al crear la Activity hay que modificar el fichero App.java para agregar el nuevo
 // **TODO** plugin para AndroidStudio que haga un merge con el fichero App.java para agregar:
 
 
-import [package_name].di.component.[NOMBRE]Component;
-import [package_name].di.component.Dagger[NOMBRE]Component;
-...
-public class App extends Application {
-...
-	private [NOMBRE]Component [nombre]Component;	
-...	
-	@Override
+    import [package_name].di.component.[NOMBRE]Component;
+
+    import [package_name].di.component.Dagger[NOMBRE]Component;
+    
+    ...
+    
+    public class App extends Application {
+    
+    ...
+       
+    private [NOMBRE]Component [nombre]Component;	
+	
+    ...	
+    
+    @Override
     public void onCreate() {
-		super.onCreate();		
-...		
-		[nombre]Component = Dagger[NOMBRE]Component.builder().build();		
-	}		
-...	
-	public [NOMBRE]Component get[NOMBRE]Component() {
+        super.onCreate();		
+		
+        ...		
+      
+        [nombre]Component = Dagger[NOMBRE]Component.builder().build();		
+    }		
+     
+    ...	
+    
+    public [NOMBRE]Component get[NOMBRE]Component() {
         return [nombre]Component;
     }
-}
+    
 
 
 ## Classes
