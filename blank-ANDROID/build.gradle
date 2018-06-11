@@ -18,6 +18,8 @@ ext {
     minVersion = 21
     targetSDK = 27
     compileSDK = 27
+
+    packageName = "com.jesuslcorominas.blank."
 }
 
 allprojects {

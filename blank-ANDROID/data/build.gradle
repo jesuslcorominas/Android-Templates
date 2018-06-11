@@ -1,4 +1,3 @@
-
 // ObjectBox
 buildscript {
     ext {
@@ -26,6 +25,7 @@ plugins {
 }
 
 apply plugin: 'java'
+
 // Para objectbox
 apply plugin: 'net.ltgt.apt-idea'
 apply plugin: 'io.objectbox'

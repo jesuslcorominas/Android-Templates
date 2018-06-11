@@ -1,4 +1,15 @@
-apply plugin: 'java-library'
+// Para Dagger 2
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
+
+apply plugin: 'java'
+
+dependencies {
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

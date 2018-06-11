@@ -97,7 +97,7 @@ android {
 // endregion
 
     defaultConfig {
-        applicationId "com.jesuslcorominas.blank.app"
+        applicationId (packageName + "app")
         minSdkVersion minVersion
         targetSdkVersion targetSDK
         versionCode code
