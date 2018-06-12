@@ -69,7 +69,14 @@ Al crear la Activity hay que modificar el fichero App.java para agregar el nuevo
         return [nombre]Component;
     }
     
+### SplashActivity
+// TODO crear	
+	
+### LoginActivity
+// TODO crear
 
+### RecyclerActivity
+// TODO crear
 
 ## Classes
 Puedes crear rápidamente clases con la estructura básica ya definida. Copia el contenido de la carpeta **classes** en 
