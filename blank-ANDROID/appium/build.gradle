@@ -22,6 +22,14 @@ dependencies {
 
 task(runAppium, dependsOn: 'classes', type: JavaExec) {
 
+    def buildDirName = 'screenshots'
+    def screenshotsDir = file(buildDirName)
+    if (screenshotsDir.exists()) {
+        screenshotsDir.delete();
+    }
+
+    file(buildDirName).mkdir()
+
     def server
     def appiumPropsFile = file('appium.properties')
     if (appiumPropsFile.canRead()) {
@@ -33,7 +41,7 @@ task(runAppium, dependsOn: 'classes', type: JavaExec) {
         throw new GradleException("Could not read appium.properties!")
     }
 
-    args server, packageName + "app"
+    args server, packageName + "app", buildDirName
     main = packageName + "appium.Appium"
 
     classpath = sourceSets.main.runtimeClasspath

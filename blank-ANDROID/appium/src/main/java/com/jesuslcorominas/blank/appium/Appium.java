@@ -1,47 +1,49 @@
 package com.jesuslcorominas.blank.appium;
 
 import com.jesuslcorominas.blank.appium.utils.AppiumHelper;
+import com.jesuslcorominas.blank.appium.view.activity.AppiumAwesomeActivity;
+import com.jesuslcorominas.blank.appium.view.fragment.AppiumAwesomeFragment;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class Appium {
 
+    private static final int ARGS = 3;
+    private static final int ARG_SERVER = 0;
+    private static final int ARG_PACKAGE_NAME = 1;
+    private static final int ARG_SCREENSHOTS_DIR = 2;
+
     private Appium() {
     }
 
     public static void main(String[] args) {
         try {
-            // TODO controlar bien el paso de parametros. Se pueden poner nombres??
-            if (args.length != 2) {
-                throw new Exception("Debes pasar la url del servidor de Appium y el nombre del paquete principal de la aplicacion como parametros");
+            if (args.length != 3) {
+                throw new Exception("Debes pasar la url del servidor de Appium, el nombre del paquete principal de la aplicacion y el nombre de la carpeta para las capturas como parametros");
             }
 
-            String server = args[0];
-            String packageName = args[1];
+            String server = args[ARG_SERVER];
+            String packageName = args[ARG_PACKAGE_NAME];
+            String screenshotsDir = args[ARG_SCREENSHOTS_DIR];
 
             AppiumHelper.connectAppium(server, packageName);
-            // TODO realizar tests
-            // test(packageName);
+
+            runtTests(screenshotsDir, packageName);
+
             AppiumHelper.disconnectAppium();
         } catch (Exception ex) {
-            Logger logger = Logger.getAnonymousLogger();
-            logger.log(Level.SEVERE, "An exception was thrown", ex);
+            Logger.getAnonymousLogger().log(Level.SEVERE, "An exception was thrown", ex);
         }
     }
 
-// Ejemplo de como podria ser un Test de instrumentacion con Appium
-//
-//    private static void test(String packageName) {
-//        AppiumHelper.getScreenshots("start.png");
-//
-//        AppiumHelper.findEditText(packageName, "inputField").sendKeys("John Doe");
-//        AppiumHelper.getScreenshots("after_adding_name");
-//
-//        AppiumHelper.findButton(packageName, "changeText").click();
-//        AppiumHelper.getScreenshots("after_click_changeText");
-//
-//        AppiumHelper.findButton(packageName, "switchActivity").click();
-//        AppiumHelper.getScreenshots("after_click_next_act");
-//    }
+    private static void runtTests(String screenshotsDir, String packageName) {
+        boolean result = new AppiumAwesomeActivity().runTests(screenshotsDir, packageName) &&
+                new AppiumAwesomeFragment().runTests(screenshotsDir, packageName);
+
+        if (!result) {
+            throw new RuntimeException("No se han superado los test de Appium");
+        }
+
+    }
 }

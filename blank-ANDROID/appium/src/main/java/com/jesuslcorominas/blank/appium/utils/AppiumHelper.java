@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,6 +28,8 @@ import io.appium.java_client.remote.MobilePlatform;
 
 public abstract class AppiumHelper {
 
+    private static final int TIMEOUT = 5;
+
     private static Logger logger = Logger.getAnonymousLogger();
 
     private static AndroidDriver sDriver;
@@ -36,6 +41,10 @@ public abstract class AppiumHelper {
         return sDriver;
     }
 
+    public static WebDriverWait waitDriver() {
+        return new WebDriverWait(sDriver, TIMEOUT);
+    }
+
     public static void connectAppium(String appiumServer, String packageName) throws IOException {
         URL url = new URL(appiumServer);
         URLConnection urlConnection = url.openConnection();
@@ -43,7 +52,7 @@ public abstract class AppiumHelper {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
         capabilities.setCapability("appPackage", packageName);
-        capabilities.setCapability("appActivity", packageName + ".MainActivity");
+        capabilities.setCapability("appActivity", packageName + ".view.activity.AwesomeActivity_");
 
         sDriver = new AndroidDriver(urlConnection.getURL(),
                 capabilities);
@@ -58,12 +67,12 @@ public abstract class AppiumHelper {
         }
     }
 
-    public static void getScreenshots(String name) {
+    public static void getScreenshots(String screenshotsDir, String name) {
         logger.log(Level.INFO, String.format("Capturing the snapshot of the page: %s", name));
 
         try {
             byte[] screenshot = sDriver.getScreenshotAs(OutputType.BYTES);
-            Path picturePath = Paths.get(URI.create("screenshots/" + name + ".png").toString());
+            Path picturePath = Paths.get(URI.create(screenshotsDir + "/" + name + ".png").toString());
             Files.write(picturePath, screenshot);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "An exception was thrown", ex);
@@ -78,7 +87,16 @@ public abstract class AppiumHelper {
         return findElement("android.widget.EditText", packageName, id);
     }
 
+    public static WebElement findMenuITem(String packageName, String id) {
+        return findTextView(packageName, id);
+    }
+
+    public static WebElement findTextView(String packageName, String id) {
+        return findElement("android.widget.TextView", packageName, id);
+    }
+
     public static WebElement findElement(String type, String packageName, String id) {
         return sDriver.findElement(By.xpath("//" + type + "[@resource-id='" + packageName + ":id/" + id + "']"));
     }
+
 }

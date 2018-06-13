@@ -74,8 +74,8 @@ android {
 // endregion
 
 // region Configuracion Version autoincremental
-    // Autoincrement del version code see https://stackoverflow.com/a/21405744
 
+    // Autoincrement del version code see https://stackoverflow.com/a/21405744
     def code
     def versionPropsFile = file('version.properties')
     if (versionPropsFile.canRead()) {
