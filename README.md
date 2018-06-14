@@ -28,6 +28,7 @@ Con la plantilla Activity se crea todo lo necesario para tener una Activity con 
 * Dagger Module > [package_name]/di/module/[NOMBRE]Module.java
 
 #### Layouts
+// TODO arreglar el nombrado de content_className en activity_layout y content_className_frameLayout en content_layout
 
 * Activity > res/layout/activity_[NOMBRE].xml
 * Content > res/layout/content_[NOMBRE].xml
