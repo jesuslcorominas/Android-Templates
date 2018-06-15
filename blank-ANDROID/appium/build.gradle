@@ -41,7 +41,7 @@ task(runAppium, dependsOn: 'classes', type: JavaExec) {
         throw new GradleException("Could not read appium.properties!")
     }
 
-    args server, packageName + "app", buildDirName
+    args server, packageName + "app", buildDirName, launchActivity
     main = packageName + "appium.Appium"
 
     classpath = sourceSets.main.runtimeClasspath

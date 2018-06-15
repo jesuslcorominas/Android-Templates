@@ -104,7 +104,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders = [fabricApiKey: fabricApiKey]
+        manifestPlaceholders = [fabricApiKey: fabricApiKey, launchActivityName: launchActivity]
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -116,8 +118,6 @@ android {
         stable {
             // Configuracion para integracion continua.
             initWith release
-
-            applicationIdSuffix ".SNAPSHOT"
         }
 
         release {

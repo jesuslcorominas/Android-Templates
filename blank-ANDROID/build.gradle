@@ -20,6 +20,7 @@ ext {
     compileSDK = 27
 
     packageName = "com.jesuslcorominas.blank."
+    launchActivity = ".view.activity.AwesomeActivity_"
 }
 
 allprojects {

@@ -3,7 +3,11 @@ package com.jesuslcorominas.blank.appium.view.activity;
 import com.jesuslcorominas.blank.appium.AppiumTesteable;
 import com.jesuslcorominas.blank.appium.utils.AppiumHelper;
 
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import io.appium.java_client.pagefactory.AndroidFindBy;
 
 /**
  * @author Jesús López Corominas
@@ -12,15 +16,16 @@ public class AppiumAwesomeActivity implements AppiumTesteable {
 
     @Override
     public boolean runTests(String screenshotsDir, String packageName) {
+        AppiumAwesomeActivityObject appiumAwesomeActivityObject = new AppiumAwesomeActivityObject();
+        PageFactory.initElements(AppiumHelper.getDriver(), appiumAwesomeActivityObject);
+
         AppiumHelper.getScreenshots(screenshotsDir, "01_start");
 
-        AppiumHelper.findMenuITem(packageName, "item_menu_copyright").click();
-
-        AppiumHelper.waitDriver().withTimeout(3, TimeUnit.SECONDS);
+        appiumAwesomeActivityObject.itemMenuCopyrigth.click();
 
         AppiumHelper.getScreenshots(screenshotsDir, "02_licenses");
 
-        AppiumHelper.findButton("android", "button1").click();
+        appiumAwesomeActivityObject.button1.click();
 
         return true;
     }

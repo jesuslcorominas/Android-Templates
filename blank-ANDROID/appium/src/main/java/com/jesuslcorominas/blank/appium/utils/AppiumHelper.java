@@ -45,14 +45,14 @@ public abstract class AppiumHelper {
         return new WebDriverWait(sDriver, TIMEOUT);
     }
 
-    public static void connectAppium(String appiumServer, String packageName) throws IOException {
+    public static void connectAppium(String appiumServer, String packageName, String launchActivityName) throws IOException {
         URL url = new URL(appiumServer);
         URLConnection urlConnection = url.openConnection();
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
         capabilities.setCapability("appPackage", packageName);
-        capabilities.setCapability("appActivity", packageName + ".view.activity.AwesomeActivity_");
+        capabilities.setCapability("appActivity", packageName + launchActivityName);
 
         sDriver = new AndroidDriver(urlConnection.getURL(),
                 capabilities);

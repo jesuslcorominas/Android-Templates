@@ -9,25 +9,31 @@ import java.util.logging.Logger;
 
 class Appium {
 
-    private static final int ARGS = 3;
+    private static final int ARGS = 4;
     private static final int ARG_SERVER = 0;
     private static final int ARG_PACKAGE_NAME = 1;
     private static final int ARG_SCREENSHOTS_DIR = 2;
+    private static final int ARG_LAUNCH_ACTIVITY = 3;
 
     private Appium() {
     }
 
     public static void main(String[] args) {
         try {
-            if (args.length != 3) {
-                throw new Exception("Debes pasar la url del servidor de Appium, el nombre del paquete principal de la aplicacion y el nombre de la carpeta para las capturas como parametros");
+            if (args.length != ARGS) {
+                throw new Exception("Parametros requeridos:" +
+                        "\n\tURL del servidor de Appium" +
+                        "\n\tPaquete principal de la aplicacion" +
+                        "\n\tCarpeta para las capturas" +
+                        "\n\tActivity a lanzar");
             }
 
             String server = args[ARG_SERVER];
             String packageName = args[ARG_PACKAGE_NAME];
+            String launchActivity = args[ARG_LAUNCH_ACTIVITY];
             String screenshotsDir = args[ARG_SCREENSHOTS_DIR];
 
-            AppiumHelper.connectAppium(server, packageName);
+            AppiumHelper.connectAppium(server, packageName, launchActivity);
 
             runtTests(screenshotsDir, packageName);
 
