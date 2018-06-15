@@ -35,6 +35,13 @@
         <copyright>Copyright 2016-2017 the AndroidAnnotations project</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
+    <!-- Appium -->
+    <notice>
+        <name>Appium</name>
+        <url>http://appium.io/</url>
+        <copyright />
+        <license>Apache Software License 2.0</license>
+    </notice>
     <!-- Dagger 2 -->
     <notice>
         <name>Dagger 2</name>

@@ -15,6 +15,8 @@ En la carpeta **components** puedes encontrar plantillas para crear de una sola 
 Con esto, cuando hagas en AndroidStudio **clic derecho > nuevo**, en la sección Other tendrás el elemento importado.
 
 ### Activity
+// TODO agregar comentarios
+
 Con la plantilla Activity se crea todo lo necesario para tener una Activity con el patrón MVP. Debes darle un nombre a la funcionalidad y todos los ficheros se nombrarán a partir de él. Las clases y ficheros que se generan son:
 
 #### Clases
@@ -28,6 +30,7 @@ Con la plantilla Activity se crea todo lo necesario para tener una Activity con 
 * Dagger Module > [package_name]/di/module/[NOMBRE]Module.java
 
 #### Layouts
+// TODO arreglar el nombrado de content_className en activity_layout y content_className_frameLayout en content_layout
 
 * Activity > res/layout/activity_[NOMBRE].xml
 * Content > res/layout/content_[NOMBRE].xml
@@ -79,6 +82,10 @@ Al crear la Activity hay que modificar el fichero App.java para agregar el nuevo
 // TODO crear
 
 ## Classes
+
+// TODO agregar comentarios
+// TODO revisar el nombrado
+
 Puedes crear rápidamente clases con la estructura básica ya definida. Copia el contenido de la carpeta **classes** en 
 
 `[CARPETA_USUARIO]\.Android[VERSION]\config\fileTemplates`
