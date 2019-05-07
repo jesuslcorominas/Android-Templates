@@ -1,0 +1,26 @@
+<template format="4"
+        revision="1"
+        name="Login Template Activity"
+        description="Crea una Activity de login con la opcion de activar la huella dactilar siguiendo el patrón MVP">
+ 
+    <category value="Other"/>
+ 
+    <parameter 
+		id="className"
+        name="Nombre de la Activity"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="LoginActivity"
+        help="El nombre de la Activity a desarrollar."/>
+		
+	<parameter
+		id="fingerprint"
+		name="Activar huella dactilar"
+		type="boolean"
+		default="false"
+		help="Indica si se va a dar opción de hacer login con huella. Si se dice que sí, se creará una segunda Activity para preguntar al usuario si quiere activar el acceso por huella."/>
+ 
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+ 
+</template>
