@@ -4,8 +4,9 @@ Plantillas para crear rápidamente un proyecto, activities o clases preconfigura
 ## Proyecto
 Plantilla de proyecto en blanco.
 
-// TODO explicar la plantilla
-// TODO comentar el codigo
+TODO explicar la plantilla
+
+TODO comentar el codigo
 
 ## Componentes
 En la carpeta **components** puedes encontrar plantillas para crear de una sola vez componentes complejos, como activities o fragments. Copia las carpetas de las plantillas que te interesen en 
